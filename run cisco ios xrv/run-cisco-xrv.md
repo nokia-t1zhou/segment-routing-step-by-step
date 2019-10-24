@@ -8,4 +8,4 @@
 
 导入完成后，如下图，可以在GNS3中看到这个router了
 
-![none]{https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/run%20cisco%20ios%20xrv/1.png}
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/run%20cisco%20ios%20xrv/1.png)
