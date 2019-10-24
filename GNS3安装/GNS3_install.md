@@ -64,11 +64,19 @@ window 10
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/GNS3-1.jpg)
 
 按照下命的步骤来配置GNS3：
+
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/GNS3-2.png)
 
+下图中IP地址选择VMWare player的IP地址（上面步骤中已经从电脑中查出）
+
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/GNS3-3.png)
+
+这一步后，GNS3会调用VMWare player来启动GNS3 VM。
+
+选择VMWare为虚拟机的软件，等待一会，直到下拉框中出现刚才配置的GNS3 VM的名字
 
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/GNS3-4.png)
 
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/GNS3-5.png)
 
+如果没有error弹框，恭喜你，GNS3已经配置完毕，下面就可以使用了！
