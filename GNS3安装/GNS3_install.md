@@ -22,3 +22,19 @@ window 10
 
 ## 3 安装GNS3
 没有特别的步骤，一路next到底。
+
+## 4 设置GNS3 VM
+请先下载好GNS3 VM，这是一个后缀名是ova的image。
+### 启动VMWare player，选择“打开虚拟机”
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer1.png)
+
+### 为虚拟机命名“GNS3 VM”
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer2.png)
+
+### 导入完成后，做一些必要的配置
+需要注意： 
+- 内存尽可能多分配，我这里给了6G；
+- 处理器选项页中的“虚拟化Inter VT-x/EPT 或AMD-V/RVI(V)"必须选上，这个选项允许GNS3 VM支持KVM。
+- 配置2个网络，一个设置为”仅主机模式“，另一个为”NAT”模式。
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer3.png)
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer4.png)
