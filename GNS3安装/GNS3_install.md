@@ -38,3 +38,11 @@ window 10
 - 配置2个网络，一个设置为”仅主机模式“，另一个为”NAT”模式。
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer3.png)
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer4.png)
+
+## 启动GNS3 VM
+可以看到如下图所示，GNS3 VM已经运行
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer5.png)
+从上图看出，GNS3 VM使用的IP地址是192.168.142.128.
+
+查看电脑的网络，可以看到VM player创建的网络接口分配的网段是192.168.142.0/24。
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/GNS3%E5%AE%89%E8%A3%85/wmplayer6.png)
