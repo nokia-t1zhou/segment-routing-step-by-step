@@ -8,3 +8,6 @@
 
 ## GNS3 project install
 
+按照上面的网络拓扑图在GNS3中搭建环境，设置好每个router的接口联接，启动这6个router（这一步需要耐心等待，router的初始化比较慢）
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/1.png)
