@@ -130,3 +130,34 @@ O IA 192.168.1.0/24 [110/3] via 192.168.12.11, 00:33:58, GigabitEthernet0/0/0/2
 O    192.168.3.0/24 [110/2] via 192.168.10.11, 01:32:46, GigabitEthernet0/0/0/1
 O    192.168.4.0/24 [110/2] via 192.168.12.11, 01:41:09, GigabitEthernet0/0/0/2
 ```
+我们来验证一下，从router 1去访问router 5的*192.168.100.10*地址
+```bash
+RP/0/0/CPU0:ios#ping 192.168.100.10
+Wed Oct 30 07:52:55.807 UTC
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.100.10, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
+```
+我们再来验证一下中间经历的router
+```bash
+RP/0/0/CPU0:ios#traceroute 192.168.100.12
+Wed Oct 30 08:01:35.642 UTC
+
+Type escape sequence to abort.
+Tracing the route to 192.168.100.12
+
+ 1  192.168.1.11 0 msec  0 msec  0 msec
+ 2  192.168.3.11 0 msec  0 msec  0 msec
+ 3  192.168.10.10 0 msec  0 msec  0 msec
+RP/0/0/CPU0:ios#traceroute 192.168.100.21
+Wed Oct 30 08:01:40.851 UTC
+
+Type escape sequence to abort.
+Tracing the route to 192.168.100.21
+
+ 1  192.168.1.11 0 msec  0 msec  0 msec
+ 2  192.168.4.11 0 msec  0 msec  0 msec
+ 3  192.168.12.10 0 msec  0 msec  0 msec
+```
+可以看出，根据目的地址的不同，router 2选择了不同的路径，这是符合我们设计初衷的
