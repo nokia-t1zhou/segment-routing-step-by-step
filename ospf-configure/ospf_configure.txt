@@ -1,6 +1,116 @@
-test
-test
+===============router R1===========================
+configure
+interface gigabitEthernet 0/0/0/0
+ipv4 address 192.168.1.10/24
+no shutdown
+exit
+router ospf 1
+router-id 0.0.0.1
+area 1
+interface gigabitEthernet 0/0/0/0
+exit
+exit
+exit
 
+exit
+===============router R2===========================
+configure
+interface gigabitEthernet 0/0/0/0
+ipv4 address 192.168.1.11/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/1
+ipv4 address 192.168.3.10/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/2
+ipv4 address 192.168.4.10/24
+no shutdown
+exit
+router ospf 1
+router-id 0.0.0.2
+area 0
+interface gigabitEthernet 0/0/0/2
+exit
+interface gigabitEthernet 0/0/0/1
+exit
+exit
+area 1
+interface gigabitEthernet 0/0/0/0
+exit
+exit
+exit
+
+exit
+===============router R3===========================
+configure
+interface gigabitEthernet 0/0/0/0
+ipv4 address 192.168.3.11/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/1
+ipv4 address 192.168.10.11/24
+no shutdown
+exit
+router ospf 1
+router-id 0.0.0.3
+area 0
+interface gigabitEthernet 0/0/0/0
+exit
+interface gigabitEthernet 0/0/0/1
+exit
+exit
+exit
+
+exit
+===============router R4===========================
+configure
+interface gigabitEthernet 0/0/0/0
+ipv4 address 192.168.4.11/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/1
+ipv4 address 192.168.12.11/24
+no shutdown
+exit
+router ospf 1
+router-id 0.0.0.4
+area 0
+interface gigabitEthernet 0/0/0/1
+exit
+interface gigabitEthernet 0/0/0/0
+exit
+exit
+exit
+
+exit
+===============router R5===========================
+configure
+interface gigabitEthernet 0/0/0/1
+ipv4 address 192.168.10.10/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/2
+ipv4 address 192.168.12.10/24
+no shutdown
+exit
+interface gigabitEthernet 0/0/0/0
+ipv4 address 192.168.100.10/24
+no shutdown
+exit
+router ospf 1
+router-id 0.0.0.5
+area 0
+interface gigabitEthernet 0/0/0/1
+exit
+interface gigabitEthernet 0/0/0/2
+exit
+interface gigabitEthernet 0/0/0/0
+exit
+exit
+exit
+
+exit
 
 
 

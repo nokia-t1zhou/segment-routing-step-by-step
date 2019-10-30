@@ -13,4 +13,31 @@
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/1.png)
 
 
-![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/ospf_configure.txt)
+按照先前的网络规划在每个router上配置OSPF，配置命令参考这个文件：![Cisco XRV OPSF configuration](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/ospf_configure.txt)
+
+配置完成后，依次查看每个router上的OSPF配置和学到的路由：
+
+router 1:
+```bash 
+RP/0/0/CPU0:ios#show protocols ospf
+Wed Oct 30 07:31:48.494 UTC
+
+Routing Protocol OSPF 1
+  Router Id: 0.0.0.1
+  Distance: 110
+  Non-Stop Forwarding: Disabled
+  Redistribution:
+    None
+  Area 1
+    GigabitEthernet0/0/0/0
+RP/0/0/CPU0:ios#show ip route ospf
+Wed Oct 30 07:31:50.204 UTC
+
+O IA 192.168.3.0/24 [110/2] via 192.168.1.11, 00:16:34, GigabitEthernet0/0/0/0
+O IA 192.168.4.0/24 [110/2] via 192.168.1.11, 00:16:34, GigabitEthernet0/0/0/0
+O IA 192.168.10.0/24 [110/3] via 192.168.1.11, 00:16:34, GigabitEthernet0/0/0/0
+O IA 192.168.12.0/24 [110/3] via 192.168.1.11, 00:16:34, GigabitEthernet0/0/0/0
+O IA 192.168.100.0/24 [110/4] via 192.168.1.11, 00:16:34, GigabitEthernet0/0/0/0
+
+
+```
