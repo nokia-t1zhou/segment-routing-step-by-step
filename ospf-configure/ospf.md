@@ -12,6 +12,7 @@
 
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/1.png)
 
+## OSPF配置
 
 按照先前的网络规划在每个router上配置OSPF，配置命令参考这个文件：![Cisco XRV OPSF configuration](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/ospf_configure.txt)
 
@@ -136,10 +137,9 @@ RP/0/0/CPU0:ios#ping 192.168.100.10
 Wed Oct 30 07:52:55.807 UTC
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 192.168.100.10, timeout is 2 seconds:
-!!!!!
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/5/9 ms
 ```
-我们再来验证一下中间经历的router
+我们再来验证一下中间经过的router
 ```bash
 RP/0/0/CPU0:ios#traceroute 192.168.100.12
 Wed Oct 30 08:01:35.642 UTC
