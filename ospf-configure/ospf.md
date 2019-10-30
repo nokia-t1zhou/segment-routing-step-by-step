@@ -17,8 +17,8 @@
 
 配置完成后，依次查看每个router上的OSPF配置和学到的路由：
 
-#### router 1```bash 
-RP/0/0/CPU0:ios#show protocols ospf
+#### router 1
+```bash RP/0/0/CPU0:ios#show protocols ospf
 Wed Oct 30 07:31:48.494 UTC
 
 Routing Protocol OSPF 1
