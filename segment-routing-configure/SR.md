@@ -5,7 +5,7 @@
 
 ## SRGB -全局Segment配置
 
-为了避免复杂度，我们在所有的router中统一SRGB
+- 为了避免复杂度，我们在所有的router中统一SRGB
 
 ```bash
 configure
@@ -13,7 +13,7 @@ segment-routing global-block 16000 23999
 commit
 ```
 
-配置完成后，可以查看到OSPF已经使用这个SRGB
+- 配置完成后，可以查看到OSPF已经使用这个SRGB
 ```bash
 RP/0/0/CPU0:ios#show mpls label table detail
 Thu Oct 31 02:48:07.010 UTC
