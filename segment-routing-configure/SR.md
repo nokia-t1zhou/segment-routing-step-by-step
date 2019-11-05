@@ -81,6 +81,108 @@ Thu Oct 31 03:55:01.665 UTC
         MTID      : 0
         Algo      : 0
         SID Index : 100
+```
+
+下面到router 2上打开Segment routing
+```bash
+configure
+router ospf 1
+area 1
+interface loopback 0
+passive enable
+prefix-sid index 200
+commit
+```
+通过查看OSPF database，发现在router 2上OSPF发送了2个10类的LSA，看来prefix-sid是对所有area生效的。
+```bash
+RP/0/0/CPU0:ios#show ospf database opaque-area 1.1.1.2/32
+Thu Oct 31 04:37:27.151 UTC
+            OSPF Router with ID (1.1.1.2) (Process ID 1)
+                Type-10 Opaque Link Area Link States (Area 0)
+  LS age: 26
+  Options: (No TOS-capability, DC)
+  LS Type: Opaque Area Link
+  Link State ID: 7.0.0.2
+  Opaque Type: 7
+  Opaque ID: 2
+  Advertising Router: 1.1.1.2
+  LS Seq Number: 80000001
+  Checksum: 0x3c8d
+  Length: 44
+
+    Extended Prefix TLV: Length: 20
+      Route-type: 3
+      AF        : 0
+      Flags     : 0x40
+      Prefix    : 1.1.1.2/32
+
+      SID sub-TLV: Length: 8
+        Flags     : 0x0
+        MTID      : 0
+        Algo      : 0
+        SID Index : 200
+                Type-10 Opaque Link Area Link States (Area 1)
+  LS age: 26
+  Options: (No TOS-capability, DC)
+  LS Type: Opaque Area Link
+  Link State ID: 7.0.0.1
+  Opaque Type: 7
+  Opaque ID: 1
+  Advertising Router: 1.1.1.2
+  LS Seq Number: 80000001
+  Checksum: 0x3894
+  Length: 44
+
+    Extended Prefix TLV: Length: 20
+      Route-type: 1
+      AF        : 0
+      Flags     : 0x40
+      Prefix    : 1.1.1.2/32
+
+      SID sub-TLV: Length: 8
+        Flags     : 0x0
+        MTID      : 0
+        Algo      : 0
+        SID Index : 200
 
 ```
 
+再来检查一下router 1是否收到了router 2的Segment routing通告
+```bash
+RP/0/0/CPU0:ios#show mpls forwarding labels 16100
+Thu Oct 31 04:38:14.348 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
+Label  Label       or ID              Interface                    Switched
+------ ----------- ------------------ ------------ --------------- ------------
+16100  Pop         SR Pfx (idx 100)   Gi0/0/0/0    192.168.1.10    0
+
+```
+可以看到在router 2中，已经生成了Segment Routing的转发表， label 16100（router 1的prefix-sid）对应的接口是Gi0/0/0/0。
+
+在router 1上，同样可以看到16200的转发表
+```bash
+RP/0/0/CPU0:ios#show mpls forwarding labels 16200
+Thu Oct 31 04:44:44.891 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
+Label  Label       or ID              Interface                    Switched
+------ ----------- ------------------ ------------ --------------- ------------
+16200  Pop         SR Pfx (idx 200)   Gi0/0/0/0    192.168.1.11    0
+```
+
+下面，在剩余的router中分别打开SR和配置prefix-sid。
+
+一切配置完成后，在router 5中可以看到SR的转发表：
+```bash
+RP/0/0/CPU0:ios#show mpls forwarding
+Thu Oct 31 04:57:02.415 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
+Label  Label       or ID              Interface                    Switched
+------ ----------- ------------------ ------------ --------------- ------------
+16100  16100       SR Pfx (idx 100)   Gi0/0/0/1    192.168.10.11   0
+       16100       SR Pfx (idx 100)   Gi0/0/0/2    192.168.12.11   0
+16200  16200       SR Pfx (idx 200)   Gi0/0/0/1    192.168.10.11   0
+       16200       SR Pfx (idx 200)   Gi0/0/0/2    192.168.12.11   0
+16300  Pop         SR Pfx (idx 300)   Gi0/0/0/1    192.168.10.11   0
+16400  Pop         SR Pfx (idx 400)   Gi0/0/0/2    192.168.12.11   0
+```
+完美符合预期，基本的Segment Routing的配置完成
