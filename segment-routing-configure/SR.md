@@ -52,7 +52,7 @@ passive enable
 prefix-sid absolute 16100
 commit
 ```
-我这里使用绝对值来指定prefix-sid（16000），但是如果在所有router上指定了相同的SRGB,那么也可以用index模式prefix-SID（100）。
+我这里使用绝对值来指定prefix-sid（16100），但是如果在所有router上指定了相同的SRGB,那么也可以用index模式prefix-SID（100）。
 配置完成后，我们看到OSPF已经使用type10的LSA向整个网络通告了router的Segment routing能力和Prefix-SID。
 ```bash
 RP/0/0/CPU0:ios#show ospf database opaque-area 1.1.1.1/32
