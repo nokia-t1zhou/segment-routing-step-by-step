@@ -5,7 +5,7 @@
 
 ## SRGB -全局Segment配置
 
-为了避免复杂度，我们在所有的router中统一SRGB
+- 为了避免复杂度，我们在所有的router中统一SRGB
 
 ```bash
 configure
@@ -13,7 +13,7 @@ segment-routing global-block 16000 23999
 commit
 ```
 
-配置完成后，可以查看到OSPF已经使用这个SRGB
+- 配置完成后，可以查看到OSPF已经使用这个SRGB
 ```bash
 RP/0/0/CPU0:ios#show mpls label table detail
 Thu Oct 31 02:48:07.010 UTC
@@ -216,7 +216,7 @@ Tracing the route to 1.1.1.5
 
  ## 遗留问题
  到了这儿，我们已经搭建好了一个基础的Segment routing网络，依赖于OSPF来通告SR能力和标签。
- 但是通过查询MPLS的forwarding表格，我们可以查到所有router的环回地址对应的MPLS的转发规则，但是查不到其他地址的转发规则，这是为什么呢？
+ 通过查询MPLS的forwarding表格，我们可以查到所有router的环回地址对应的MPLS的转发规则，但是查不到其他地址的转发规则，这是为什么呢？
 ```bash
 RP/0/0/CPU0:ios#show mpls forwarding prefix 1.1.1.5/32
 Tue Nov  5 07:50:46.544 UTC
