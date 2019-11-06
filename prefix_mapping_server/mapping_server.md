@@ -74,4 +74,4 @@ Tracing the route to 192.168.100.10
 至此，计划中的segment routing网络已经准备完成，下面章节我们来使用它
 
 ### 到这一步骤的所有router的配置
-
+![router configuration list](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/router%20configure.txt)
