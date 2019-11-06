@@ -29,7 +29,7 @@ mapping-server prefix-sid-map address-family ipv4
 commit
 ```
 
-打开prefix mapping server的发布功能
+- 打开prefix mapping server的发布功能
 ```bash
 configure
 router ospf 1
@@ -37,7 +37,7 @@ segment-routing prefix-sid-map advertise-local
 commit
 ```
 
-到router 1上查看是否已经学到了这个segment
+- 到router 1上查看是否已经学到了这个segment
 ```bash
 RP/0/0/CPU0:ios#show mpls forwarding prefix 192.168.100.0/24
 Wed Nov  6 02:53:03.243 UTC
@@ -46,7 +46,7 @@ Label  Label       or ID              Interface                    Switched
 ------ ----------- ------------------ ------------ --------------- ------------
 16510  16510       SR Pfx (idx 510)   Gi0/0/0/0    192.168.1.11    0
 ```
-可以看到16510已经存在router 1的mpls转发表中，再来traceroute一下
+- 可以看到16510已经存在router 1的mpls转发表中，再来traceroute一下
 ```bash
 RP/0/0/CPU0:ios#traceroute 192.168.100.10
 Wed Nov  6 02:53:26.912 UTC
@@ -58,6 +58,8 @@ Tracing the route to 192.168.100.10
  2  192.168.3.11 [MPLS: Label 16510 Exp 0] 9 msec  0 msec  9 msec
  3  192.168.10.10 0 msec  *  19 msec
 ```
+- 在router 1和router 2中间抓包，确认router 1发出的icmp包已经带了mpls报文
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/1.png)
 
 
 
