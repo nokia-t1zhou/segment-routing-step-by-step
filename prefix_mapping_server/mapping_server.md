@@ -20,7 +20,7 @@ At steady state, all routers, at least in the same area or level, must have iden
 
 ## 配置命令
 我们选定router 5做为prefix mapping server。
-- 先配置prefix mapping list，在这里我们为192.168.100.0/24指定了segment 510(这里必需填相对index，最后得出的segment=SRGB+index = 16510)，范围是30（192.168.100.0=16510，192.168.100.1=16511,依此类推，一共30个segment）
+- 先配置prefix mapping list，在这里我们为192.168.100.0/24指定了segment 510(这里必需填相对index，最后得出的segment=SRGB+index = 16510)，范围是30（192.168.100.0/24=16510，192.168.101.0/24=16511,依此类推，一共30个segment）
 ```bash
 configure
 segment-routing
@@ -45,6 +45,16 @@ Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
 Label  Label       or ID              Interface                    Switched
 ------ ----------- ------------------ ------------ --------------- ------------
 16510  16510       SR Pfx (idx 510)   Gi0/0/0/0    192.168.1.11    0
+
+RP/0/0/CPU0:ios#show ospf segment-routing prefix-sid-map active-policy
+Wed Nov  6 03:06:45.837 UTC
+
+        SRMS active policy for Process ID 1
+
+Prefix               SID Index    Range        Flags
+192.168.100.0/24     510          30
+
+Number of mapping entries: 1
 ```
 - 可以看到16510已经存在router 1的mpls转发表中，再来traceroute一下
 ```bash
@@ -61,5 +71,7 @@ Tracing the route to 192.168.100.10
 - 在router 1和router 2中间抓包，确认router 1发出的icmp包已经带了mpls报文
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/1.png)
 
+至此，计划中的segment routing网络已经准备完成，下面章节我们来使用它
 
+### 到这一步骤的所有router的配置
 

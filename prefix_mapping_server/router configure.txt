@@ -1,0 +1,230 @@
+router 1====================================================
+RP/0/0/CPU0:ios#show run
+Wed Nov  6 03:11:57.656 UTC
+Building configuration...
+!! IOS XR Configuration 6.1.3
+!! Last configuration change at Tue Nov  5 06:04:56 2019 by test
+!
+ipv4 prefix-list test
+ 1 permit 192.168.10.0/24
+!
+interface Loopback0
+ ipv4 address 1.1.1.1 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 192.168.1.10 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.1
+ segment-routing mpls
+ segment-routing forwarding mpls
+ area 1
+  interface Loopback0
+   passive enable
+   prefix-sid absolute 16100
+  !
+  interface GigabitEthernet0/0/0/0
+   network point-to-point
+  !
+ !
+!
+segment-routing
+ global-block 16000 23999
+!
+end
+
+router 2====================================================
+RP/0/0/CPU0:ios#show run
+Wed Nov  6 03:12:23.582 UTC
+Building configuration...
+!! IOS XR Configuration 6.1.3
+!! Last configuration change at Tue Nov  5 05:59:36 2019 by test
+!
+interface Loopback0
+ ipv4 address 1.1.1.2 255.255.255.255
+!
+interface Loopback1
+ ipv4 address 1.1.2.1 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 192.168.1.11 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 192.168.3.10 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 192.168.4.10 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.2
+ segment-routing mpls
+ segment-routing forwarding mpls
+ area 0
+  interface Loopback0
+   passive enable
+   prefix-sid absolute 16200
+  !
+  interface GigabitEthernet0/0/0/1
+   network point-to-point
+  !
+  interface GigabitEthernet0/0/0/2
+   network point-to-point
+  !
+ !
+ area 1
+  interface Loopback1
+   passive enable
+   prefix-sid absolute 16201
+  !
+  interface GigabitEthernet0/0/0/0
+   network point-to-point
+  !
+ !
+!
+segment-routing
+ global-block 16000 23999
+!
+end
+
+router 3====================================================
+RP/0/0/CPU0:ios#show run
+Wed Nov  6 03:12:48.701 UTC
+Building configuration...
+!! IOS XR Configuration 6.1.3
+!! Last configuration change at Tue Nov  5 05:42:46 2019 by test
+!
+interface Loopback0
+ ipv4 address 1.1.1.3 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 192.168.3.11 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 192.168.10.11 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.3
+ segment-routing mpls
+ segment-routing forwarding mpls
+ area 0
+  interface Loopback0
+   passive enable
+   prefix-sid absolute 16300
+  !
+  interface GigabitEthernet0/0/0/0
+   network point-to-point
+  !
+  interface GigabitEthernet0/0/0/1
+   network point-to-point
+  !
+ !
+!
+segment-routing
+ global-block 16000 23999
+!
+end
+
+router 4====================================================
+RP/0/0/CPU0:ios#show run
+Wed Nov  6 03:13:06.340 UTC
+Building configuration...
+!! IOS XR Configuration 6.1.3
+!! Last configuration change at Tue Nov  5 05:38:44 2019 by test
+!
+interface Loopback0
+ ipv4 address 1.1.1.4 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 192.168.4.11 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 192.168.12.11 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.4
+ segment-routing mpls
+ segment-routing forwarding mpls
+ area 0
+  interface Loopback0
+   passive enable
+   prefix-sid absolute 16400
+  !
+  interface GigabitEthernet0/0/0/0
+   network point-to-point
+  !
+  interface GigabitEthernet0/0/0/1
+   network point-to-point
+  !
+ !
+!
+segment-routing
+ global-block 16000 23999
+!
+end
+
+router 5====================================================
+RP/0/0/CPU0:ios#show run
+Wed Nov  6 03:13:22.429 UTC
+Building configuration...
+!! IOS XR Configuration 6.1.3
+!! Last configuration change at Wed Nov  6 02:51:45 2019 by test
+!
+interface Loopback0
+ ipv4 address 1.1.1.5 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 192.168.100.10 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 192.168.10.10 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 192.168.12.10 255.255.255.0
+!
+router ospf 1
+ router-id 1.1.1.5
+ segment-routing mpls
+ segment-routing forwarding mpls
+ segment-routing prefix-sid-map advertise-local
+ area 0
+  interface Loopback0
+   passive enable
+   prefix-sid absolute 16500
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+   network point-to-point
+  !
+  interface GigabitEthernet0/0/0/2
+   network point-to-point
+  !
+ !
+!
+segment-routing
+ global-block 16000 23999
+ mapping-server
+  prefix-sid-map
+   address-family ipv4
+    192.168.100.0/24 510 range 30
+   !
+  !
+ !
+!
+end
+
