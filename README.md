@@ -6,6 +6,6 @@
 2. [安装Cisco iOS XRV](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/run%20cisco%20ios%20xrv/run-cisco-xrv.md)
 3. [配置OSPF网络](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/ospf.md)
 4. [Segment routing配置](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/segment-routing-configure/SR.md)
-5. [prefix mapping server配置] (https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/mapping_server.md)
+5. [prefix mapping server配置](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/mapping_server.md)
 
 # 持续更新中
