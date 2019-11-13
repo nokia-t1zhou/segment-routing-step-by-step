@@ -12,6 +12,7 @@ SR其中一个关键功能是SR-TE。SR-TE将用户的意图（延迟、不相�
 - 隧道接口占用了设备上的逻辑资源，使得设备能支持的SR-TE数量有限
 - 不支持一些新的SR功能例如灵活算法（Flex-Algo）、性能测量（Performance Measurement）等
 
+# SR Policy
 SR Policy完全抛弃了隧道接口的概念，是重新设计的一套SR-TE体系。
 
 SR Policy通过解决方案Segment列表来实现流量工程意图。Segment列表对数据包在网络中的任意转发路径进行编码。列表中的Segment可以是任何类型：IGP Segment、IGP Flex-Algo Segment、BGP Segment等。
@@ -26,7 +27,7 @@ SR Policy由以下三元组标识：
 
 ![none](https://img1.sdnlab.com/wp-content/uploads/2019/09/SR-policy-3.png)
 
-## 配置SR-TE Policy
+# 配置SR-TE Policy
 
 我们目前使用的IOS image还不支持SR Policy，所以这儿只能用SR-TE policy来做segment router traffic引流实验。
 在前面的步骤中，我们已经搭建好了一个Segment Routing的网络，从router 1到router 5有2条路径，所以在这一步走，我们来创建2个SR-TE policy分别代表这2条路径。
