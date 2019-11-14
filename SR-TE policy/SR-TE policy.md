@@ -224,3 +224,73 @@ mpls traffic-eng
 ```
 最后别忘了，所有的router都需要执行这一步操作
 配置完成后，所有router的配置在这里[router configuration](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/router.txt)
+
+再查tunnel的状态，已经up了
+```bash
+RP/0/0/CPU0:ios#show mpls traffic-eng tunnels brief
+Thu Nov 14 08:11:46.028 UTC
+
+                     TUNNEL NAME         DESTINATION      STATUS  STATE
+                      tunnel-te1      192.168.100.10          up  up
+                      tunnel-te2      192.168.100.10          up  up
+```
+
+## 验证SR-TE
+
+- BSID
+BSID（Binding-SID）对SR-TE很重要。
+BSID与SR-TE policy绑定，在一个router上，任意时刻一个BSID都绑定唯一一条SR-TE policy， BSID的功能是将带标签的数据包引导到与他关联的SR-TE Policy。
+简单来说，当router收到的数据包中第一个label是本router的BSID，执行的操作就是pop BSID，然后push SR-TE policy segment list。
+
+我们来做一个简单的实验
+
+-- 先找出自动分配的BSID
+在router 2上执行
+```bash
+RP/0/0/CPU0:ios#show mpls traffic-eng tunnels detail
+Name: tunnel-te1  Destination: 192.168.100.10  Ifhandle:0xf0
+.....
+  Binding SID: 24004
+.....
+    Segment-Routing Path Info (OSPF 1 area 0)
+      Segment0[Node]: 1.1.1.3, Label: 16300
+      Segment1[ - ]: Label: 16510
+
+.....
+Name: tunnel-te2  Destination: 192.168.100.10  Ifhandle:0x110
+.....
+  Binding SID: 24005
+.....
+    Segment-Routing Path Info (OSPF 1 area 0)
+      Segment0[Node]: 1.1.1.4, Label: 16400
+      Segment1[ - ]: Label: 16510
+.....
+```
+可以查到2个BSID： Binding SID: 24004，Binding SID: 24005
+24004对应的是path_2_3_5,24005对应的是path_2_4_5
+
+在router 1上使用mpls工具来发送带MPLS lable的udp包
+```bash
+RP/0/0/CPU0:ios#ping mpls nil-fec labels 24004 output interface gigabitEthernet 0/0/0/0 nexthop 192.168.1.11
+Sending 5, 100-byte MPLS Echos with Nil FEC with labels [24004],
+      timeout is 2 seconds, send interval is 0 msec:
+
+Codes: '!' - success, 'Q' - request not sent, '.' - timeout,
+  'L' - labeled output interface, 'B' - unlabeled output interface,
+  'D' - DS Map mismatch, 'F' - no FEC mapping, 'f' - FEC mismatch,
+  'M' - malformed request, 'm' - unsupported tlvs, 'N' - no rx label,
+  'P' - no rx intf label prot, 'p' - premature termination of LSP,
+  'R' - transit router, 'I' - unknown upstream index,
+  'X' - unknown return code, 'x' - return code 0
+
+Type escape sequence to abort.
+
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/8/20 ms
+```
+在router1-router2上抓到UDP包如下，router1发出的UDP包里面带着24004的label
+
+在router2-router3上抓到UDP包如下，UDP包中的24004已经被替换为16510，即path_2_3_5的segment list。
+
+将上面命令中的lable换成24005，那么UDP包就会走另一条路径。
+
