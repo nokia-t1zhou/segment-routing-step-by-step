@@ -237,15 +237,13 @@ Thu Nov 14 08:11:46.028 UTC
 
 ## 验证SR-TE
 
-- BSID
 BSID（Binding-SID）对SR-TE很重要。
 BSID与SR-TE policy绑定，在一个router上，任意时刻一个BSID都绑定唯一一条SR-TE policy， BSID的功能是将带标签的数据包引导到与他关联的SR-TE Policy。
 简单来说，当router收到的数据包中第一个label是本router的BSID，执行的操作就是pop BSID，然后push SR-TE policy segment list。
 
-我们来做一个简单的实验
+我们来做一个简单的实验.
 
--- 先找出自动分配的BSID
-在router 2上执行
+先找出自动分配的BSID,在router 2上执行
 ```bash
 RP/0/0/CPU0:ios#show mpls traffic-eng tunnels detail
 Name: tunnel-te1  Destination: 192.168.100.10  Ifhandle:0xf0
@@ -266,6 +264,7 @@ Name: tunnel-te2  Destination: 192.168.100.10  Ifhandle:0x110
       Segment1[ - ]: Label: 16510
 .....
 ```
+
 可以查到2个BSID： Binding SID: 24004，Binding SID: 24005
 24004对应的是path_2_3_5,24005对应的是path_2_4_5
 
@@ -289,8 +288,10 @@ Type escape sequence to abort.
 Success rate is 100 percent (5/5), round-trip min/avg/max = 1/8/20 ms
 ```
 在router1-router2上抓到UDP包如下，router1发出的UDP包里面带着24004的label
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/1.png)
 
 在router2-router3上抓到UDP包如下，UDP包中的24004已经被替换为16510，即path_2_3_5的segment list。
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/2.png)
 
 将上面命令中的lable换成24005，那么UDP包就会走另一条路径。
 
