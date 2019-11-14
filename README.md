@@ -7,5 +7,5 @@
 3. [配置OSPF网络](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/ospf-configure/ospf.md)
 4. [Segment routing配置](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/segment-routing-configure/SR.md)
 5. [prefix mapping server配置](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/mapping_server.md)
-
+6. [SR-TE policy](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/SR-TE%20policy.md)
 # 持续更新中

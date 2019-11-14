@@ -33,6 +33,7 @@ SR Policy由以下三元组标识：
 在前面的步骤中，我们已经搭建好了一个Segment Routing的网络，从router 2到router 5有2条路径，所以在这一步中，我们来创建2个SR-TE policy分别代表这2条路径。
 
 整个网络拓扑如下图：
+![nono](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/Picture1.jpg) 
 
 ## 配置Explicit SR-TE Policy
 
@@ -222,4 +223,4 @@ mpls traffic-eng
 !
 ```
 最后别忘了，所有的router都需要执行这一步操作
-配置完成后，所有router的配置在这里
+配置完成后，所有router的配置在这里[router configuration](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/router.txt)
