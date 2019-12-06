@@ -31,7 +31,7 @@ IPv6 Next Header字段取值为43，表示后接的是IPv6路由扩展头。Rout
 - End.DX2 oif <interface>: decapsulate an L2 frame and forward it to the specified interface
 - End.DX6 nh6 <nexthop>: if the local node is the last segment, or if no SRH is present, then decapsulate the inner IPv6 packet and forward it to the specified nexthop. If the parameter is set to ::, then the nexthop is selected according to the local route lookup process.
 - End.DX4 nh4 <nexthop>: same as above, except that the inner payload is an IPv4 packet, and the nexthop is of the IPv4 family.
-- End.DT6 table <table>:  decapsulate an IPv6 packet and forward it to the next-hop looked up in the specified routing table.
+- End.DT6 table <table>:decapsulate an IPv6 packet and forward it to the next-hop looked up in the specified routing table.
 - End.B6 srh segs <segments> [hmac <keyid>]: insert the specified SRH immediately after the outermost IPv6 header. The original SRH is not modified. The destination address of the packet is set to the first segment of the newly inserted SRH and the packet is forwarded accordingly.
 - End.B6.Encaps srh segs <segments> [hmac <keyid>]: advance the packet to the next segment (decrement the segments left value and update the DA accordingly), then encapsulate the resulting packet within an outer IPv6 header containing the specified SRH. The DA of the outer IPv6 header is set to the first segment of the specified SRH. The packet is then forwarded accordingly.
 
