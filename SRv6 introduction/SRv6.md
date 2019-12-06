@@ -14,7 +14,10 @@ SRv6采用IPv6标准中定义的路由扩展报头(Routing Extension Header)承�
 
 为了在IPv6报文中实现SRv6转发，引入了一个SRv6扩展头（Routing Type为4），叫Segment Routing Header（SRH），用于进行Segment的编程组合形成SRv6路径。
 下图是SRv6的报文封装格式。
-![none]()
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/ipv6_header.png)
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/SRH_1.png)
 
 IPv6 Next Header字段取值为43，表示后接的是IPv6路由扩展头。Routing Type = 4，表明这是SRH的路由扩展头，这个扩展头里字段解释如下：
-![none]()
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/SRH_fileds.JPG)
