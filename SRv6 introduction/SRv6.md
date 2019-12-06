@@ -35,7 +35,7 @@ IPv6 Next Header字段取值为43，表示后接的是IPv6路由扩展头。Rout
 - End.B6.Encaps srh segs <segments> [hmac <keyid>]: advance the packet to the next segment (decrement the segments left value and update the DA accordingly), then encapsulate the resulting packet within an outer IPv6 header containing the specified SRH. The DA of the outer IPv6 header is set to the first segment of the specified SRH. The packet is then forwarded accordingly.
 
 # 一个简单的SRv6转发流程
-![none]()
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/follow.png)
 上图展示了SRv6转发的一个范例。在这个范例中，结点R1要指定路径（需要通过R2-R3、R4-R5的链路转发）转发到R6，其中R1、R2、R4、R6为有SRv6能力的的设备，R3、R5为不支持SRv6的设备。
 
 - Ingress结点处理：R1将SRv6路径信息封装在SRH扩展头，指定R2和R4的END.X SID，同时初始化SL = 2，并将SL指示的SID A2::11拷贝到外层IPv6头目的地址。R1根据外层IPv6目的地址查路由表转发到R2。
