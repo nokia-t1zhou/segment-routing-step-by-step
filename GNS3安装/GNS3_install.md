@@ -13,8 +13,8 @@ window 10
 3. VMware player 12
 4. VMware-VIX 1.15.0
 
-因为最新的免费的VMWare VIX只能支持到VMWare player 12， 所以我们只用12这个版本，等以后VIX有新版本了，对于的player也可以用新的。
-注意： 如果你的电脑是AMD CPU，那么请安装GNS3 2.3.0，GNS3 VM 2.3.0 （参考https://github.com/GNS3/gns3-vm/issues/130）
+- 因为最新的免费的VMWare VIX只能支持到VMWare player 12， 所以我们只用12这个版本，等以后VIX有新版本了，对应的player也可以用新的。
+- 注意： 如果你的电脑是AMD CPU，那么请安装GNS3 2.3.0，GNS3 VM 2.3.0 （参考https://github.com/GNS3/gns3-vm/issues/130）
 
 ## 1 安装VMware player 12
 没有特别的步骤，一路next到底。
