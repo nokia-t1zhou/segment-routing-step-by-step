@@ -105,3 +105,28 @@ ip -6 route add 3000::1/128 via 2000:2003::1001
 从主机a上发起ping，由于R1配置了策略路由，所以我们让发出去的icmp request使用30.30.30.1做为source地址。
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/ping_cmd.jpg)
 ping是成功的，我们再在路由器上用tcpdump抓包，看看每一跳的数据包是否和我们预期的一样。
+
+- 从主机a上发出的icmp request是一个标准的icmp4的数据报文
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/a_send_icmp_request.png)
+
+- R1收到icmp报文后，匹配到符合目标地址的SRv6的encap操作，给icmp报文加上IPv6 header和SRH
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/1_send_icmp_request.png)
+可以看到，在发出的新的IPv6报文中，dest地址填的是segment list第一跳3000::2, SRH中的Segment left=1
+新的IPv6报文封装后，R1通过查询本地路由表，将报文发送到R2 ens35接口。
+
+- R2收到IPv6报文， 根据外层IPv6 dest地址3000::2查找本地Local SID表，命中END.X SID，执行END.X SID的指令动作：SL—，并将SL指示的SID(3000::4)拷贝到外层IPv6头目的地址，同时根据END.X关联的下一跳(ens34)转发给R4，发出去的IPv6报文如下：
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/2_send_icmp_request.png)
+可以看到，IPv6 dest已经被替换为3000::4，而且segment left通过SL—操作变成了0。
+
+- R4收到IPv6报文后，由于Segment Left已经被R2 更新为0，R4会根据策略执行End.DX4操作，去掉IPv6外层报头，重新变回一个原始的icmp request报文， 并且转发到指定的20.20.20.1主机b
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/4_send_icmp_request.png)
+
+- 通过上面的转发，主机b已经收到了icmp request，会回复icmp reply，这个报文再次发给了R4
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/b_send_icmp_reply.png)
+
+- R4收到icmp reply报文后，根据匹配到的回程SRv6路由，再次封装icmp reply报文，加上IPv6 header和SRH，并且从ens34发送给R3：
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/4_send_icmp_reply.png)
+
+后面的步骤大同小异，R4->R3->R1->a，完美验证我们的设计。
+具体的tcpdump数据在[tcpdump_monitor](https://github.com/nokia-t1zhou/segment-routing-step-by-step/tree/master/SRv6%20VPN/tcpdump_monitor)目录，大家可以参考。
+
