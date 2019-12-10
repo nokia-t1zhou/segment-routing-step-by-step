@@ -16,12 +16,14 @@ icmp数据包如下图所示
 
 ## 配置
 - 主机a
+
 配置路由，发往主机b的数据包送到R1
 ```
 ip addr add 30.30.30.1/24 dev ens34
 ip route add 20.20.20.0/24 via 30.30.30.2
 ```
 - 主机b
+
 配置路由，发往主机a的数据包送到R4
 ```
 ip addr add 20.20.20.1/24 dev ens34
@@ -114,9 +116,9 @@ ping是成功的，我们再在路由器上用tcpdump抓包，看看每一跳的
 可以看到，在发出的新的IPv6报文中，dest地址填的是segment list第一跳3000::2, SRH中的Segment left=1
 新的IPv6报文封装后，R1通过查询本地路由表，将报文发送到R2 ens35接口。
 
-- R2收到IPv6报文， 根据外层IPv6 dest地址3000::2查找本地Local SID表，命中END.X SID，执行END.X SID的指令动作：SL—，并将SL指示的SID(3000::4)拷贝到外层IPv6头目的地址，同时根据END.X关联的下一跳(ens34)转发给R4，发出去的IPv6报文如下：
+- R2收到IPv6报文， 根据外层IPv6 dest地址3000::2查找本地Local SID表，命中END.X SID，执行END.X SID的指令动作：SL-，并将SL指示的SID(3000::4)拷贝到外层IPv6头目的地址，同时根据END.X关联的下一跳(ens34)转发给R4，发出去的IPv6报文如下：
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/2_send_icmp_request.png)
-可以看到，IPv6 dest已经被替换为3000::4，而且segment left通过SL—操作变成了0。
+可以看到，IPv6 dest已经被替换为3000::4，而且segment left通过SL-操作变成了0。
 
 - R4收到IPv6报文后，由于Segment Left已经被R2 更新为0，R4会根据策略执行End.DX4操作，去掉IPv6外层报头，重新变回一个原始的icmp request报文， 并且转发到指定的20.20.20.1主机b
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/4_send_icmp_request.png)
