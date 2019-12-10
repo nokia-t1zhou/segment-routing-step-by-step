@@ -18,6 +18,5 @@ ip addr add 2000:2001::1002/120 dev ens35
 ip addr add 2000:2002::1002/120 dev ens34
 ip addr add 3000::22/128 dev lo
 
-ip route add 20.20.20.0/24  encap seg6 mode encap segs 3000::2 3000::4 dev ens34
 ip -6 route add 3000::2/128 encap seg6local action End dev ens34
 ip -6 route add 3000::4 via 2000:2002::1004
