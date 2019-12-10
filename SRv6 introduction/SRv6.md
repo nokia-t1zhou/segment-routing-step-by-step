@@ -4,7 +4,7 @@ Segment Routing（以下简称SR）指由思科发明，并主要由IETF SPRING�
 
 SR数据平面有两种实现方式，一种是SR MPLS，重用了MPLS数据平面；另一种是SRv6，使用IPv6数据平面。SR架构可以运行在这两种数据平面上，这是自SR提出第一天起就确立的原则。
 
-SRv6采用IPv6标准中定义的路由扩展报头(Routing Extension Header)承载新定义的SRH（Segment Routing Header）扩展路由报头，SRH类型号定义为4。在SRH中包含了Segment列表。SRv6 Segment形式上是一个128位的IPv6的地址，但其实此Segment由Locator(定位器)和Function(指令)构成(还可以含有”参数”信息, 本文先略过)，Locator用于IPv6路由，Function用于指定节点需要对数据包施加的各种SRv6操作，实现网络的可编程性。
+SRv6采用IPv6标准中定义的路由扩展报头(Routing Extension Header)承载新定义的SRH（Segment Routing Header）扩展路由报头，SRH类型号定义为4。在SRH中包含了Segment列表。SRv6 Segment形式上是一个128位的IPv6的地址，但其实此Segment由Locator(定位器)和Function(指令)构成，Locator用于IPv6路由，Function用于指定节点需要对数据包施加的各种SRv6操作，实现网络的可编程性。
 
 和SR MPLS不一样，在数据包的转发过程中SRv6通常不会弹出Segment，而是通过SRH中的Segment Left(剩余Segment，是个不小于0 的数值)字段作为指针，指向活动Segment，类似于SR MPLS中的顶层标签。每经过一个SRv6端节点，Segment Left减1，更新IPv6报头的目的地址为Segment 列表中当前Segment Left对应的Segment，并遵循常规的IPv6路由把数据包转发出去。
 
