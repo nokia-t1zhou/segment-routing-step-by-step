@@ -2,15 +2,8 @@ systemctl disable NetworkManager
 systemctl stop NetworkManager
 systemctl disable firewalld
 systemctl stop firewalldd
-ip addr add 192.168.119.11/24 dev ens32
-ip addr add 30.30.30.2/24 dev ens36
 systemctl enable sshd
 systemctl restart sshd
-
-ip addr add 2000:2001::1001/120 dev ens34
-ip addr add 2000:2003::1001/120 dev ens35
-ip addr add 3000::11/128 dev lo
-
 sysctl -w net.ipv4.ip_forward=1
 sysctl -w net.ipv6.conf.all.forwarding=1
 sysctl -w net.ipv6.conf.all.seg6_enabled=1
@@ -21,6 +14,12 @@ sysctl -w net.ipv6.conf.ens35.seg6_enabled=1
 sysctl -w net.ipv6.conf.ens36.seg6_enabled=1
 sysctl -w net.ipv6.conf.lo.seg6_enabled=1
 sysctl -w net.ipv4.conf.all.rp_filter=0
+
+ip addr add 192.168.119.11/24 dev ens32
+ip addr add 30.30.30.2/24 dev ens36
+ip addr add 2000:2001::1001/120 dev ens34
+ip addr add 2000:2003::1001/120 dev ens35
+ip addr add 3000::11/128 dev lo
 
 ip rule add from 30.30.30.1/32 table 100
 
