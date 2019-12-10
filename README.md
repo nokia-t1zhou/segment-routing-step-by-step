@@ -9,5 +9,5 @@
 5. [prefix mapping server配置](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/prefix_mapping_server/mapping_server.md)
 6. [SR-TE policy](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SR-TE%20policy/SR-TE%20policy.md)
 7. [SRv6简介](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/SRv6.md)
-8. [SRv6流量工程的一个例子]()
+8. [SRv6 VPN例子](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20VPN/VPN.md)
 # 持续更新中
