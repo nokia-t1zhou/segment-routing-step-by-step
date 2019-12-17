@@ -51,6 +51,20 @@ IPv6 Next Header字段取值为43，表示后接的是IPv6路由扩展头。Rout
 # 做一个简单的SRv6例子
 
 网络拓扑如下图：
-![none]()
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/srv6_example.png)
 
 主机a发送数据包给主机b，中间经过3个路由器。 R1会给收到的数据包加上SRH，主机b会收到SL=0的数据包，应用层就可以处理这个数据包
+
+具体配置可以参考[SRv6 example](https://github.com/nokia-t1zhou/segment-routing-step-by-step/tree/master/SRv6%20introduction/srv6%20example/configuration)
+特别要提一点，R2上应用了策略路由来实现segment 3000::2数据包中转：
+1. 从接口ens34收到的数据包，从ens35转发走
+2. 从接口ens35收到的数据包，从ens34转发走
+
+- R1上数据包的处理
+R1收到发往2000:200b::100b的数据包，查询本地SID路由表，命中segs inline操作，为数据包添加SRH扩展头，指定R2和R4的END.X SID，同时初始化SL = 2，并将SL指示的SID 3000::2拷贝到外层IPv6头目的地址。R1根据外层IPv6目的地址查路由表转发到R2.
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/1_send.png)
+
+- R2上数据包的处理
+
+- R4上数据包的处理
