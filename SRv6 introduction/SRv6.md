@@ -66,5 +66,14 @@ R1收到发往2000:200b::100b的数据包，查询本地SID路由表，命中seg
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/1_send.png)
 
 ## R2上数据包的处理
+R2收到发往3000::2的数据包，根据外层IPv6地址3000::2查找本地Local SID表，命中END SID，执行END SID的指令动作：SL—，并将SL指示的SID(3000::4)拷贝到外层IPv6头目的地址，同时根据END关联的下一跳转发。
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/2_send.png)
 
 ## R4上数据包的处理
+R4收到发往3000::4的数据包，根据外层IPv6地址3000::4查找本地Local SID表，命中END.X SID，执行END.X SID的指令动作：SL—，并将SL指示的SID(2000:200b::100b)拷贝到外层IPv6头目的地址，同时根据END.X关联的下一跳转发。
+此时的数据包已经恢复成了初始的IPv6数据包(尽管SRH扩展头还存在，但是SL=0，所以这个扩展头不在起作用)，可以被应用层处理。
+
+![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/4_send.png)
+
+主机b收到数据包后，ICMP协议会处理这个数据包，并发回ICMP reply。
