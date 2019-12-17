@@ -60,11 +60,11 @@ IPv6 Next Header字段取值为43，表示后接的是IPv6路由扩展头。Rout
 1. 从接口ens34收到的数据包，从ens35转发走
 2. 从接口ens35收到的数据包，从ens34转发走
 
-- R1上数据包的处理
+## R1上数据包的处理
 R1收到发往2000:200b::100b的数据包，查询本地SID路由表，命中segs inline操作，为数据包添加SRH扩展头，指定R2和R4的END.X SID，同时初始化SL = 2，并将SL指示的SID 3000::2拷贝到外层IPv6头目的地址。R1根据外层IPv6目的地址查路由表转发到R2.
 
 ![none](https://github.com/nokia-t1zhou/segment-routing-step-by-step/blob/master/SRv6%20introduction/1_send.png)
 
-- R2上数据包的处理
+## R2上数据包的处理
 
-- R4上数据包的处理
+## R4上数据包的处理
