@@ -152,7 +152,7 @@ Tue Nov  5 07:35:50.129 UTC
         SID Index : 200
 ```
 
-再来检查一下router 1是否收到了router 2的Segment routing通告
+在router 2上检查mpls转发表：
 ```bash
 RP/0/0/CPU0:ios#show mpls forwarding labels 16100
 Thu Oct 31 04:38:14.348 UTC
