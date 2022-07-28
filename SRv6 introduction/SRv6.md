@@ -2,6 +2,8 @@
 
 Segment Routing（以下简称SR）指由思科发明，并主要由IETF SPRING（Source Packet Routing In Networking）工作组进行标准化的新一代网络传送技术。SR基于源路由并且只在网络边缘维持状态，这使得SR非常适合于超大规模SDN部署，在极大简化网络的同时，SR也为网络提供了高度的可编程能力以及端到端的流量工程能力。因此在出现仅短短五年后，SR已经成为业界共识，是新一代网络尤其是5G网络的事实SDN架构标准。
 
+Segment Routing (hereinafter referred to as SR) refers to a new generation of network transmission technology invented by Cisco and standardized predominantly by the IETF SPRING (Source Packet Routing In Networking) working group. SR is based on source routing and only maintains state at the network edge, which makes SR very suitable for ultra-large-scale SDN deployment. In addition to greatly simplifying the network, SR also provides the network with a high degree of programmability and end-to-end traffic engineering capabilities.  Accordingly, just five years after its appearance, SR has become the consensus of the industry and is the de facto SDN architecture standard for new-generation networks, specifically 5G networks.
+
 SR数据平面有两种实现方式，一种是SR MPLS，重用了MPLS数据平面；另一种是SRv6，使用IPv6数据平面。SR架构可以运行在这两种数据平面上，这是自SR提出第一天起就确立的原则。
 
 SRv6采用IPv6标准中定义的路由扩展报头(Routing Extension Header)承载新定义的SRH（Segment Routing Header）扩展路由报头，SRH类型号定义为4。在SRH中包含了Segment列表。SRv6 Segment形式上是一个128位的IPv6的地址，但其实此Segment由Locator(定位器)和Function(指令)构成，Locator用于IPv6路由，Function用于指定节点需要对数据包施加的各种SRv6操作，实现网络的可编程性。
